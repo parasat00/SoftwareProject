@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@400;500;600&family=Roboto:wght@100&display=swap');
+body {
+ margin: 0;
+ padding: 0;
+ font-family: Poppins;
+ background-color: #f9f9f9;
+}
+nav {
+ height: 90px;
+ background-color: #fff;
+ display: flex;
+ align-items: center;
+ padding-left: 70px;
+}
+.logo_container img {
+ height: auto;
+ width: 100%;
+ max-width: 128px !important;
+}
+.search {
+ width: 408px;
+ height: 40px;
+ background-color: #efefef;
+ border-radius: 14px;
+ display: flex;
+ align-items: center;
+ color: #757575;
+ padding-left: 25px;
+ font-size: 13px;
+ margin-left: 35.5rem;
+}
+
+.notifications {
+ position: relative;
+ margin-right: 1.8rem;
+ margin-left: 4.3rem;
+}
+
+.notification_numb {
+ background-color: #1155CC;
+ width: 21px;
+ height: 21px;
+ color: #fff;
+ border-radius: 15px;
+ font-size: 11px;
+ box-sizing: border-box;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ position: absolute;
+ left: 10px;
+ top: -11px;
+}
+
+.profile_info {
+ display: flex;
+}
+
+.profile_photo {
+ width: 100%;
+ height: auto;
+ max-width: 46px;
+}
+
+.name_surname {
+ font-weight: 600;
+ font-size: 14px;
+}
+
+.profession {
+ color: #8f8f8f;
+ font-size: 10px;
+ text-align: right;
+}
+
+.name_profession {
+ margin-right: 30px;
+}
+.profile_general_info {
+ padding: 36px 69px 48px 56px;
+ margin: 36px 28px 0 28px;
+ background-color: #fff;
+ border-top: 4px solid #000000;
+}
+.profile_name .header {
+ font-weight: 500;
+ font-size: 32px;
+ line-height: 48px;
+ color: #8C8CA1;
+}
+.big_profile_info, .profile_general_info {
+ display: flex;
+ align-items: center;
+}
+.big_profile_info .big_profile_photo {
+ width: 100%;
+ height: auto;
+ max-width: 240px;
+}
