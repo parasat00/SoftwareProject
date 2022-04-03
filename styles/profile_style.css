@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@400;500;600;700&family=Roboto:wght@100&display=swap');
+body {
+ margin: 0;
+ padding: 0;
+ font-family: Poppins;
+ background-color: #f9f9f9;
+ padding-bottom: 200px;
+}
+nav {
+ height: 90px;
+ background-color: #fff;
+ display: flex;
+ align-items: center;
+ padding-left: 70px;
+}
+.logo_container img {
+ height: auto;
+ width: 100%;
+ max-width: 128px !important;
+}
+.search {
+ width: 408px;
+ height: 40px;
+ background-color: #efefef;
+ border-radius: 14px;
+ display: flex;
+ align-items: center;
+ color: #757575;
+ padding-left: 25px;
+ font-size: 13px;
+ margin-left: 35.5rem;
+}
+
+.notifications {
+ position: relative;
+ margin-right: 1.8rem;
+ margin-left: 4.3rem;
+}
+
+.notification_numb {
+ background-color: #1155CC;
+ width: 21px;
+ height: 21px;
+ color: #fff;
+ border-radius: 15px;
+ font-size: 11px;
+ box-sizing: border-box;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ position: absolute;
+ left: 10px;
+ top: -11px;
+}
+
+.profile_info {
+ display: flex;
+ cursor: pointer;
+}
+
+.profile_photo {
+ width: 100%;
+ height: auto;
+ max-width: 46px;
+}
+
+.name_surname {
+ font-weight: 600;
+ font-size: 14px;
+}
+
+.profession {
+ color: #8f8f8f;
+ font-size: 10px;
+ text-align: right;
+}
+
+.name_profession {
+ margin-right: 30px;
+}
+.profile_general_info {
+ padding: 36px 69px 48px 56px;
+ margin: 36px 28px 0 28px;
+ background-color: #fff;
+ border-top: 4px solid #000000;
+ justify-content: space-between;
+}
+.profile_name .header {
+ font-weight: 500;
+ font-size: 30px;
+ line-height: 32px;
+ color: #8C8CA1;
+}
+.profile_name .name {
+ font-weight: 700;
+ font-size: 80px;
+ line-height: 80px;
+ color: #3E3E3E;
+}
+.big_profile_info, .profile_general_info, .flexi {
+ display: flex;
+ align-items: center;
+}
+.big_profile_info .big_profile_photo {
+ width: 100%;
+ height: auto;
+ max-width: 240px;
+ margin-right: 60px;
+}
+.flexi_status {
+ padding: 12px 8px;
+ border-radius: 10px;
+ font-size: large;
+ margin-left: 30px;
+ color: #000;
+}
+.w_card {
+ background: rgba(32, 204, 17, 0.15);
+ width: 100px;
+}
+.wo_card {
+ background: rgba(204, 17, 62, 0.15);
+ width: 130px;
+}
+.fa-gear {
+ font-size: 50px !important;
+ color: #082673;
+ cursor: pointer;
+}
+.user_details h1, .login_activity h1 {
+ font-weight: 600;
+ font-size: 38px;
+}
+.user_details .gray {
+ font-weight: 500;
+ font-size: 19px;
+ color: #8C8CA1;
+ margin-bottom: 10px;
+  margin-left: 10px;
+}
+.user_details .bold {
+ font-weight: 700;
+ font-size: 24px;
+ color: #3E3E3E;
+ margin-bottom: 30px;
+ margin-left: 10px;
+}
+.second {
+ align-items: flex-start;
+}
+.login_activity {
+ margin-right: 50px;
+}
+.login_activity .bold {
+ font-weight: 700;
+ font-size: 24px;
+ margin-left: 30px;
+}
+.login_activity .txt {
+ font-weight: 400;
+ font-size: 20px;
+ margin-bottom: 30px;
+ margin-left: 30px;
+}
