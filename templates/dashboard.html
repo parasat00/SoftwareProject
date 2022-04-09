@@ -54,10 +54,10 @@
 
   <div class="profile_info">
    <div class="name_profession">
-    <div class="name_surname">Admin Admin</div>
-    <div class="profession">Admin</div>
+    <div class="name_surname">{{ user.name }} {{ user.surname }} </div>
+    <div class="profession">{{ user.profession }}</div>
    </div>
-   <img src="static/images/profile_photo.png" alt="" class="profile_photo">
+   <a href="/profile"><img src="static/images/profile_photo.png" alt="" class="profile_photo"></a>
   </div>
 
  </nav>
@@ -128,7 +128,7 @@
     <div class="text_w_box">
      <div class="bold_txt">02:48:45</div>
      <div class="blue_box">
-      <img src="static/images/second_icon.png" alt="">
+      <img src="./images/second_icon.png" alt="">
      </div>
     </div>
    

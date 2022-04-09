@@ -210,3 +210,13 @@ nav button img {
  font-size: 30px;
  font-weight: bold;
 }
+h1{
+    text-align: center;
+}
+.container{
+    position: relative;
+    left: 40%;
+}
+input{
+    display: block;
+}

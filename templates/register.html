@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+
+{%block title %} Login{% endblock %}
+
+{%block body %}
+<h1> Student Login Form </h1>  
+
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+
+<form method="post">  
+    <div class="container">   
+        <label>Name : </label>   
+        <input type="text" placeholder="Enter Username" name="name" required>
+        <label>Surname : </label>   
+        <input type="text" placeholder="Enter surname" name="surname" required>
+        <label>id : </label>   
+        <input type="text" placeholder="Enter id" name="id" required>
+        <label>profession : </label>   
+        <input type="text" placeholder="Enter profession" name="profession" required>      
+        <label>Password : </label>   
+        <input type="password" placeholder="Enter Password" name="password" required>
+        <button type="submit">Register</button>     
+        <button type="button" class="cancelbtn"> Cancel</button>   
+         
+    </div>   
+</form>     
+
+
+{% endblock %}

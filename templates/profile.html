@@ -12,7 +12,7 @@
  
  <nav>
  
-  <a href="#" class="logo_container">
+  <a href="/home" class="logo_container">
    <img src="static/images/logo.png" alt="logo">
   </a>
  
@@ -27,8 +27,8 @@
  
   <div class="profile_info">
    <div class="name_profession">
-    <div class="name_surname">Admin Admin</div>
-    <div class="profession">Admin</div>
+    <div class="name_surname">{{ user.name }} {{ user.surname }}</div>
+    <div class="profession">{{ user.profession }}</div>
    </div>
    <img src="static/images/profile_photo.png" alt="" class="profile_photo">
   </div>
@@ -43,8 +43,8 @@
     <img src="static/images/big_profile_photo.png" alt="" class="big_profile_photo">
     
     <div class="profile_name">
-     <div class="header">Name</div>
-     <div class="name">Admin Admin</div>
+     <div class="header">{{ user.name.capitalize() }}</div>
+     <div class="name">{{user.name }}</div>
      <div class="header flexi">Flexi Status: 
       <div class="flexi_status w_card">With Card</div>
       <div class="flexi_status wo_card">Without Card</div>
@@ -63,13 +63,11 @@
     <h1>User Details</h1>
 
     <div class="gray">Email</div>
-    <div class="bold">190107092@stu.sdu.edu.kz</div>
+    <div class="bold">{{user.login_id}}@stu.sdu.edu.kz</div>
 
-    <div class="gray">Age</div>
-    <div class="bold">20 years old</div>
 
     <div class="gray">Occupation</div>
-    <div class="bold">Administrator</div>
+    <div class="bold">{{user.profession}}</div>
 
     <div class="gray">Country/City</div>
     <div class="bold">Kazakhstan/Qaskelen</div>
