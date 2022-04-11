@@ -220,3 +220,8 @@ h1{
 input{
     display: block;
 }
+.btn-ex-en{
+    align-items: center;
+    text-align: center;
+    
+}
