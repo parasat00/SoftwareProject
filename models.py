@@ -31,17 +31,12 @@ class Employee(db.Model,UserMixin):
 class FlexStatus(db.Model):
     id = db.Column(db.Integer(),primary_key = True)
     employee_id = db.Column(db.Integer,db.ForeignKey('employee.id'))
-    enterTime = db.Column(db.DateTime(timezone = True),default = datetime.utcnow,nullable = False)
-    exitTime = db.Column(db.DateTime(timezone = True),default = datetime.utcnow,nullable = True)
+    enterTime = db.Column(db.DateTime(),nullable = True)
+    exitTime = db.Column(db.DateTime(),nullable = True)
 
     def get_status(self):
         tmp = self.exitTime - self.enterTime
-        print(self.exitTime)
-        print(self.enterTime)
-        if tmp.seconds/3600 - 18>= 7:
-            return f'{self.exitTime} {self.enterTime}'
-        else:
-            return 'red'
+        return tmp.seconds
 
 
     def __repr__(self) -> str:

@@ -5,7 +5,7 @@
  <meta http-equiv="X-UA-Compatible" content="IE=edge">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>Dashboard</title>
- <link rel="stylesheet" href="static/styles/dashboard_style.css">
+ <link rel="stylesheet" href="{{ url_for('static',filename = 'styles/dashboard_style.css') }}">
 </head>
 <body>
 
@@ -68,7 +68,8 @@
 
    <div class="today_info">
     <div class="today">Today</div>
-    <div class="info">Mon 29, 2022 | 10:00 AM</div>
+
+    <div class="info">{{ now.week_day }} {{ now.today_date.day}}, {{ now.today_date.year }} | {{ now.today_date.hour}} : {{ now.today_date.minute}}</div>
    </div>
 
    <div class="start_time_tracker">
@@ -94,7 +95,7 @@
     </div>
 
     <div class="text_w_box">
-     <div class="bold_txt">93.8%</div>
+     <div class="bold_txt">{{ worked_activity.weekly_activity }}</div>
      <div class="blue_box">
       <img src="static/images/first_icon.png" alt="">
      </div>
@@ -110,7 +111,7 @@
     </div>
    
     <div class="text_w_box">
-     <div class="bold_txt">37:21:15</div>
+     <div class="bold_txt">{{ worked_activity.worked_time }} min</div>
      <div class="blue_box">
       <img src="static/images/second_icon.png" alt="">
      </div>
@@ -126,7 +127,7 @@
     </div>
    
     <div class="text_w_box">
-     <div class="bold_txt">02:48:45</div>
+     <div class="bold_txt">{{ worked_activity.hours_remained }}</div>
      <div class="blue_box">
       <img src="./images/second_icon.png" alt="">
      </div>

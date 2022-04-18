@@ -1,39 +1,74 @@
-{% extends 'layout.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="stylesheet" href="{{ url_for('static',filename = 'styles/register_login_reset.css') }}">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+ <title>Register</title>
+</head>
+<body>
+ <section class="whole_content">
+  <div class="blue_background">
+   <div class="whole_back"></div>
+   <img src= "{{ url_for('static',filename = 'images/joby_tracker.jpg')}}" alt="" class="registr_logo" style="background-color: #1565D8;">
+  </div>
 
-{%block title %} Login{% endblock %}
+  <section class="form_content">
 
-{%block body %}
-<h1> Student Login Form </h1>  
+   <button onclick="history.back()" class="back_button">
+    <i class="fa fa-angle-left"></i> 
+    <label>Back</label>
+   </button>
 
+   <div class="register_info">
+    <h1>Register Individual Account!</h1>
+    <div>For the purpose of employers regulation, your details are required.</div>
+   </div>
 
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class=flashes>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
+   <form method="POST">
+    <div class="register_content">
+     <div class="registr_container">
+      <div class="first column">
+       <label>Email address *</label>
+       <input type="text" placeholder="Enter id " name="id" required>
+       <label>Create password *</label>
+       <input type="password" placeholder="Password" name="password" required>
+       <label>Repeat password *</label>
+       <input type="password" placeholder="Repeat password" name="repeat_password" required>
+      </div>
+     
+      <div class="second column">
+       <label>Name *</label>
+       <input type="text" placeholder="Name" name="name" required>
+       <label>Surname *</label>
+       <input type="text" placeholder="Surname" name="surname" required>
+       <label>Profession *</label>
+       <input type="text" placeholder="Profession" name="profession" required>
+      </div>
+     
+     </div>
 
+     <div class="register_button">
 
-<form method="post">  
-    <div class="container">   
-        <label>Name : </label>   
-        <input type="text" placeholder="Enter Username" name="name" required>
-        <label>Surname : </label>   
-        <input type="text" placeholder="Enter surname" name="surname" required>
-        <label>id : </label>   
-        <input type="text" placeholder="Enter id" name="id" required>
-        <label>profession : </label>   
-        <input type="text" placeholder="Enter profession" name="profession" required>      
-        <label>Password : </label>   
-        <input type="password" placeholder="Enter Password" name="password" required>
-        <button type="submit">Register</button>     
-        <button type="button" class="cancelbtn"> Cancel</button>   
-         
-    </div>   
-</form>     
+      <input type="radio" name="agreement">
+      <label for="agreement">I agree to terms & conditions</label>
 
+      
+      <input type="submit" value="Register Account" >
+     </div>
 
-{% endblock %}
+    </div>
+    
+    
+    
+
+   </form>
+
+  </section>
+
+ </section>
+ 
+</body>
+</html>
