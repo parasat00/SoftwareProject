@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static',filename ='styles/register_login_reset.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>Join Us</title>
+</head>
+
+<body>
+  <section class="whole_content">
+    <div class="blue_background">
+      <div class="whole_back"></div>
+      <img src="{{ url_for('static',filename = 'images/joby_tracker.jpg')}}" alt="" class="registr_logo" style="background-color: #1565D8;">
+    </div>
+
+    <section class="form_content">
+
+      <button onclick="history.back()" class="back_button">
+        <i class="fa fa-angle-left"></i>
+        <label>Back</label>
+      </button>
+
+      
+
+      <form method="POST" class="login">
+        <div class="login_content">
+          <div class="login_container">
+
+            <div class="login_info">
+              <h1>Login Account</h1>
+              <div>Hello , welcome back to our account !</div>
+            </div>
+
+            <div class="column">
+
+              <label>ID *</label>
+              <input type="text" placeholder="Enter id " name="id" required>
+              <label>Password *</label>
+              <input type="password" placeholder="Password" name="password" required>
+
+            </div>
+
+
+          </div>
+            {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+          
+          <div class="login_button">
+            <!-- <div class="warning_txt">Please ! Enter correct ID or Password</div> -->
+
+            <a href="#" class="right gray">Forgot Password?</a>
+
+            <input type="submit" value="Login">
+          </div>
+
+        </div>
+
+
+
+
+      </form>
+
+    </section>
+
+  </section>
+
+</body>
+
+</html>
