@@ -36,9 +36,10 @@ def home():
 
             if f <= status.enterTime.weekday()<= l:
                 work_time += status.get_status() // 60
+                
 
-        activity = f'{(work_time / 2700)*100:.2f}%'
-        return activity,work_time,(2700 - work_time)
+        activity = f'{(work_time / (((week_day + 1) if week_day<5 else 5) * 7 *60))*100:.2f}%'
+        return activity,work_time,(2100 - work_time)
 
     wa,wt,hr = week_activity()
     hr = f'{hr//60}:{hr//60%60}'

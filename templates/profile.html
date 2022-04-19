@@ -45,9 +45,12 @@
     <div class="profile_name">
      <div class="header">{{ user.name.capitalize() }}</div>
      <div class="name">{{user.name }}</div>
-     <div class="header flexi">Flexi Status: 
-      <div class="flexi_status w_card">{{flex}}</div>
-      
+     <div class="header flexi">Flexi Status:
+         {% if flex >= 126000 %} 
+        <div class="flexi_status w_card">Green</div>
+        {% else %}
+        <div class="flexi_status wo_card">Red</div>
+        {% endif %}
      </div>
     </div>
    </div>
