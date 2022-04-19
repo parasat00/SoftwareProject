@@ -15,7 +15,9 @@ body {
  position: relative;
  
  /* background-color: #1565D8 !important; */
- background-image: url("../images/registr_back.png");
+ /* background-image: url("../images/registr_back.png"); */
+  background-image: url("../images/joby_tracker.jpg");
+
 }
 .registr_logo {
  width: 200px;

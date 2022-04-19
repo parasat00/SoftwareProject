@@ -5,6 +5,7 @@
  <meta http-equiv="X-UA-Compatible" content="IE=edge">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>Dashboard</title>
+ <link rel="stylesheet" href="../static/styles/dashboard_style.css">
  <link rel="stylesheet" href="{{ url_for('static',filename = 'styles/dashboard_style.css') }}">
 </head>
 <body>
@@ -12,21 +13,21 @@
  <section id="mySideNav" class="sideNav">
 
   <a href="#" class="logo_container">
-   <img src="static/images/logo.png" alt="logo">
+   <img src="../static/images/logo.png" alt="logo">
   </a>
 
   <a href="#" class="dashboard_black">
-   <img src="static/images/rect.png" alt="">
+   <img src="../static/images/rect.png" alt="">
    <div>Dashboard</div>
   </a>
 
   <a href="#" class="links">
-   <img src="static/images/icon_workDays.png" alt="">
+   <img src="../static/images/icon_workDays.png" alt="">
    Work Days
   </a>
 
   <a href="#" class="links">
-   <img src="static/images/icon_settings.png" alt="">
+   <img src="../static/images/icon_settings.png" alt="">
    Settings
   </a>
 
@@ -39,7 +40,7 @@
  <nav>
  
   <button>
-   <img src="static/images/menu_bar.png" alt="">
+   <img src="../static/images/menu_bar.png" alt="">
    <div class="dashboard_txt">Dashboard</div>
   </button>
 
@@ -48,7 +49,7 @@
   </div>
 
   <div class="notifications">
-   <img src="static/images/bell.png" alt="">
+   <img src="../static/images/bell.png" alt="">
    <div class="notification_numb">12</div>
   </div>
 
@@ -57,7 +58,7 @@
     <div class="name_surname">{{ user.name }} {{ user.surname }} </div>
     <div class="profession">{{ user.profession }}</div>
    </div>
-   <a href="/profile"><img src="static/images/profile_photo.png" alt="" class="profile_photo"></a>
+   <a href="/profile"><img src="../static/images/profile_photo.png" alt="" class="profile_photo"></a>
   </div>
 
  </nav>
@@ -77,7 +78,7 @@
     <div class="txt">Start Time Tracker</div>
    
     <button class="play">
-     <img src="static/images/play.png" alt="">
+     <img src="../static/images/play.png" alt="">
     </button>
    
    </div>
@@ -97,7 +98,7 @@
     <div class="text_w_box">
      <div class="bold_txt">{{ worked_activity.weekly_activity }}</div>
      <div class="blue_box">
-      <img src="static/images/first_icon.png" alt="">
+      <img src="../static/images/first_icon.png" alt="">
      </div>
     </div>
     
@@ -113,7 +114,7 @@
     <div class="text_w_box">
      <div class="bold_txt">{{ worked_activity.worked_time }} min</div>
      <div class="blue_box">
-      <img src="static/images/second_icon.png" alt="">
+      <img src="../static/images/second_icon.png" alt="">
      </div>
     </div>
    
@@ -129,7 +130,7 @@
     <div class="text_w_box">
      <div class="bold_txt">{{ worked_activity.hours_remained }}</div>
      <div class="blue_box">
-      <img src="./images/second_icon.png" alt="">
+      <img src="../static/images/second_icon.png" alt="">
      </div>
     </div>
    
