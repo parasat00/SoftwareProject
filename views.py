@@ -7,26 +7,29 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import desc
 
 
-@app.route('/profile', methods=['POST', 'GET'])
+@app.route('/profile', methods = ['POST', 'GET'])
+@login_required
 def profile_page():
     user = current_user
     flx = FlexStatus.query.order_by(desc(FlexStatus.enterTime)).filter_by(
         employee_id=current_user.id).first().get_status()
-    print(flx)
+    # print(flx)
     return render_template('profile.html', user=user, flex=flx)
 
 
-@app.route('/home', methods=['POST', 'GET'])
+@app.route('/home', methods = ['POST', 'GET'])
+@login_required
 def home():
     user = current_user
     week_day = datetime.now().weekday()
     now = {
-        'today_date':datetime.now(),
-        'week_day':['Mon','Tue','Wen','Thur','Fri','Sat','Sun'][week_day]
+        'today_date': datetime.now(),
+        'week_day': ['Mon', 'Tue', 'Wen', 'Thur', 'Fri', 'Sat', 'Sun'][week_day]
     }
     # today week chek
 
-    dates_status = FlexStatus.query.filter_by(employee_id = current_user.id).all()
+    dates_status = FlexStatus.query.filter_by(employee_id=current_user.id).all()
+
     # current_week_days = []
     def week_activity():
         f = week_day - week_day % 7
@@ -34,28 +37,23 @@ def home():
         work_time = 0
         for status in dates_status:
 
-            if f <= status.enterTime.weekday()<= l:
+            if f <= status.enterTime.weekday() <= l:
                 work_time += status.get_status() // 60
-                
 
-        activity = f'{(work_time / (((week_day + 1) if week_day<5 else 5) * 7 *60))*100:.2f}%'
-        return activity,work_time,(2100 - work_time)
+        activity = f'{(work_time / 2520) * 100:.2f}%'
+        return activity, work_time, (2520 - work_time)
 
-    wa,wt,hr = week_activity()
-    hr = f'{hr//60}:{hr//60%60}'
+    wa, wt, hr = week_activity()
+    hr = f'{hr // 60}:{hr // 60 % 60}'
     worked_activity = {
-        'weekly_activity':wa,
-        'worked_time':wt,
-        'hours_remained':hr,
+        'weekly_activity': wa,
+        'worked_time': wt,
+        'hours_remained': hr,
     }
-
-    print(worked_activity)
-
     return render_template('dashboard.html',
-                           user = current_user,
-                           now = now,
-                           worked_activity = worked_activity
-
+                           user=current_user,
+                           now=now,
+                           worked_activity=worked_activity
 
                            )
 
@@ -76,11 +74,6 @@ def login_page():
             flash('Password or login is incorrect ')
 
     return render_template('login.html')
-
-
-@app.route('/hello')
-def hello():
-    return 'Hello world'
 
 
 @app.route('/register', methods=['POST', 'GET'])
@@ -110,13 +103,32 @@ def register_page():
 @login_required
 def route_page():
     logout_user()
+    return render_template('login.html')
 
 
-@app.route('/mm',methods = ['POST','GET'])
+@app.route('/reset-password', methods=['POST', 'GET'])
+def reset_password():
+    if request.method == 'POST':
+        login_id = request.form.get('id')
+        name = request.form.get('name')
+        surname = request.form.get('surname')
+        profession = request.form.get('profession')
+        password = request.form.get('password')
+        update_employee = Employee.query.filter_by(login_id=login_id).fist()
+
+        if name == update_employee.name and surname == update_employee.surname and update_employee.profession == profession:
+            update_employee.password = password
+            db.session.commit()
+
+    return render_template('reset.html')
+
+
+@app.route('/mm', methods=['POST', 'GET'])
 def nnn():
     if request.method == 'POST':
         a = request.form.get('enterDate')
         b = request.form.get('exitDate')
+
         def get_dt(date):
             date = str(date)
             year = int(date[:4])
@@ -124,10 +136,11 @@ def nnn():
             day = int(date[8:10])
             hour = int(date[11:13])
             minute = int(date[14:16])
-            return datetime(year,month,day,hour,minute)
+            return datetime(year, month, day, hour, minute)
+
         a = get_dt(a)
         b = get_dt(b)
-        flx = FlexStatus(enterTime = a,exitTime = b,employee_id = current_user.id)
+        flx = FlexStatus(enterTime=a, exitTime=b, employee_id=current_user.id)
         db.session.add(flx)
         db.session.commit()
     return render_template('constant_form.html')
