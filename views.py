@@ -18,18 +18,16 @@ def profile_page():
 
 
 @app.route('/home', methods = ['POST', 'GET'])
-@login_required
 def home():
-    user = current_user
     week_day = datetime.now().weekday()
     now = {
         'today_date': datetime.now(),
         'week_day': ['Mon', 'Tue', 'Wen', 'Thur', 'Fri', 'Sat', 'Sun'][week_day]
     }
     # today week chek
-
+    print(current_user.id)
     dates_status = FlexStatus.query.filter_by(employee_id=current_user.id).all()
-
+    print(dates_status)
     # current_week_days = []
     def week_activity():
         f = week_day - week_day % 7

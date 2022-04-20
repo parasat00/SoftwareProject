@@ -21,10 +21,10 @@
 
     <section class="form_content">
 
-      <button onclick="history.back()" class="back_button">
-        <i class="fa fa-angle-left"></i>
-        <label>Back</label>
-      </button>
+{#      <button onclick="history.back()" class="back_button">#}
+{#        <i class="fa fa-angle-left"></i>#}
+{#        <label>Back</label>#}
+{#      </button>#}
 
       
 
@@ -61,9 +61,10 @@
           <div class="login_button">
             <!-- <div class="warning_txt">Please ! Enter correct ID or Password</div> -->
 
-            <a href="register" class="right gray">forgot password</a>
+            <a href="/reset-password" class="right gray">forgot password</a>
 
             <input type="submit" value="Login">
+              <input type="button" value="Register" onclick="location.href='register'">
           </div>
 
         </div>

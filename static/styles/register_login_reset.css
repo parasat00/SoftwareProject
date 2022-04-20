@@ -73,7 +73,7 @@ form label, form input {
 .registr_container input[type="text"] {
  width: 300px;
 }
-form input[type="text"] {
+form input[type="text"],form input[type="password"] {
  border: 1px solid #8692A6;
  box-sizing: border-box;
  border-radius: 6px;
@@ -83,7 +83,7 @@ form input[type="text"] {
 .register_button {
  padding-left: 70px;
 }
-form input[type="submit"] {
+form input[type="submit"],form input[type="button"] {
  background: #1565D8;
  border-radius: 6px;
  display: block;

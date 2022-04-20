@@ -13,7 +13,7 @@ class Card(db.Model):
 
 class Employee(db.Model, UserMixin):
     id = db.Column(db.Integer(), primary_key=True)
-    login_id = db.Column(db.String(10), unique=True, nullable=False)
+    login_id = db.Column(db.String(10), unique=True, nullable=True)
     name = db.Column(db.String(100), nullable=False)
     surname = db.Column(db.String(100), nullable=False)
     profession = db.Column(db.String(30), nullable=False)
@@ -29,7 +29,7 @@ class FlexStatus(db.Model):
     employee_id = db.Column(db.Integer, db.ForeignKey('employee.id'))
     enterTime = db.Column(db.DateTime(), nullable=True)
     exitTime = db.Column(db.DateTime(), nullable=True)
-    manually = db.Column(db.Boolean(), default=False)
+    manually = db.Column(db.Boolean(), default=False,nullable=True)
 
     def get_status(self):
         tmp = self.exitTime - self.enterTime
