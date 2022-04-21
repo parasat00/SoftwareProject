@@ -12,21 +12,21 @@
 
  <section id="mySideNav" class="sideNav">
 
-  <a href="#" class="logo_container">
+  <a href="" class="logo_container">
    <img src="../static/images/logo.png" alt="logo">
   </a>
 
-  <a href="#" class="dashboard_black">
+  <a href="" class="dashboard_black">
    <img src="../static/images/rect.png" alt="">
    <div>Dashboard</div>
   </a>
 
-  <a href="#" class="links">
+  <a href="work_days" class="links">
    <img src="../static/images/icon_workDays.png" alt="">
    Work Days
   </a>
 
-  <a href="#" class="links">
+  <a href="" class="links">
    <img src="../static/images/icon_settings.png" alt="">
    Settings
   </a>
@@ -70,14 +70,14 @@
    <div class="today_info">
     <div class="today">Today</div>
 
-    <div class="info">{{ now.week_day }} {{ now.today_date.day}}, {{ now.today_date.year }} | {{ now.today_date.hour}} : {{ now.today_date.minute}}</div>
+    <div class="info">{{ today.week_day }} {{ today.today_date.day}}, {{ today.today_date.year }} | {{ today.today_date.hour}} : {{ today.today_date.minute}}</div>
    </div>
 
    <div class="start_time_tracker">
    
     <div class="txt">Start Time Tracker</div>
    
-    <button class="play">
+    <button class="play" onclick="">
      <img src="../static/images/play.png" alt="">
     </button>
    
@@ -91,12 +91,12 @@
    <div class="box first">
 
     <div class="txt_w_dots">
-     <div class="header">Weekly Activity</div>
+     <div class="header">Daily Activity</div>
      <div class="dots">:</div>
     </div>
 
     <div class="text_w_box">
-     <div class="bold_txt">{{ worked_activity.weekly_activity }}</div>
+     <div class="bold_txt">{{ day_activity.daily_activity }}%</div>
      <div class="blue_box">
       <img src="../static/images/first_icon.png" alt="">
      </div>
@@ -107,12 +107,12 @@
    <div class="box secod">
    
     <div class="txt_w_dots">
-     <div class="header">Worked This Week</div>
+     <div class="header">Worked This today</div>
      <div class="dots">:</div>
     </div>
    
     <div class="text_w_box">
-     <div class="bold_txt">{{ worked_activity.worked_time }} min</div>
+     <div class="bold_txt">{{ day_activity.worked_time }}</div>
      <div class="blue_box">
       <img src="../static/images/second_icon.png" alt="">
      </div>
@@ -128,7 +128,7 @@
     </div>
    
     <div class="text_w_box">
-     <div class="bold_txt">{{ worked_activity.hours_remained }}</div>
+     <div class="bold_txt">{{ day_activity.hours_remained }}</div>
      <div class="blue_box">
       <img src="../static/images/second_icon.png" alt="">
      </div>
@@ -144,6 +144,7 @@
  </section>
 
 </section>
+<script  rel="{{ url_for('static',filename = 'js/app.js') }}"></script>
 
 </body>
 </html>

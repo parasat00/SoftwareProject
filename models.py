@@ -35,8 +35,8 @@ class FlexStatus(db.Model):
         tmp = self.exitTime - self.enterTime
         return tmp.seconds
 
-    def get_day(self):
-        return self.enterTime.day
+    def get_date(self):
+        return self.enterTime.date()
 
     def __repr__(self) -> str:
         return f'<FlexStatus %r>' % self.id

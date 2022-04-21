@@ -5,9 +5,10 @@ from flask import Flask, flash, redirect, render_template, request
 from models import Employee, FlexStatus, load_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import desc
+import math
 
 
-@app.route('/profile', methods = ['POST', 'GET'])
+@app.route('/profile', methods=['POST', 'GET'])
 @login_required
 def profile_page():
     user = current_user
@@ -17,43 +18,36 @@ def profile_page():
     return render_template('profile.html', user=user, flex=flx)
 
 
-@app.route('/home', methods = ['POST', 'GET'])
+@app.route('/home', methods=['POST', 'GET'])
 def home():
+    now = datetime.now()
     week_day = datetime.now().weekday()
-    now = {
+    today = {
         'today_date': datetime.now(),
         'week_day': ['Mon', 'Tue', 'Wen', 'Thur', 'Fri', 'Sat', 'Sun'][week_day]
     }
-    # today week chek
-    print(current_user.id)
-    dates_status = FlexStatus.query.filter_by(employee_id=current_user.id).all()
-    print(dates_status)
-    # current_week_days = []
-    def week_activity():
-        f = week_day - week_day % 7
-        l = week_day + (7 - week_day % 7)
-        work_time = 0
-        for status in dates_status:
+    flxs = FlexStatus.query.filter_by(employee_id = current_user.id).all()
+    days = []
+    for flx in flxs:
+        if flx.enterTime.date() == now.date():
+            days.append((flx.enterTime, flx.exitTime))
+    if len(days) == 0:
+        day_activity = {}
+    else:
+        day = max(days)
+        work_time = (now - day[0]) if not day[1] else (day[1] - day[0])
+        print(day[0])
+        print(day[1])
+        day_activity = {
+            'daily_activity': f'{(work_time.seconds / 28800) * 100:.2f}',
+            'worked_time': f'{work_time.seconds // 3600:02d}:{work_time.seconds // 60 % 60:02d}',
+            'hours_remained': f'{(8 - math.ceil(work_time.seconds / 3600)):02d}:{(60 - work_time.seconds // 60 % 60):02d}'
 
-            if f <= status.enterTime.weekday() <= l:
-                work_time += status.get_status() // 60
+        }
 
-        activity = f'{(work_time / 2520) * 100:.2f}%'
-        return activity, work_time, (2520 - work_time)
-
-    wa, wt, hr = week_activity()
-    hr = f'{hr // 60}:{hr // 60 % 60}'
-    worked_activity = {
-        'weekly_activity': wa,
-        'worked_time': wt,
-        'hours_remained': hr,
-    }
     return render_template('dashboard.html',
-                           user=current_user,
-                           now=now,
-                           worked_activity=worked_activity
-
-                           )
+                           today=today,
+                           user=current_user, day_activity=day_activity)
 
 
 @app.route('/', methods=['POST', 'GET'])
@@ -115,10 +109,32 @@ def reset_password():
         update_employee = Employee.query.filter_by(login_id=login_id).fist()
 
         if name == update_employee.name and surname == update_employee.surname and update_employee.profession == profession:
-            update_employee.password = password
+            update_employee.password = generate_password_hash(password)
+            flash('Successfully changed')
             db.session.commit()
 
     return render_template('reset.html')
+
+
+@app.route('/work_days')
+def work_days():
+    flx_s = FlexStatus.query.filter_by(employee_id=current_user.id).all()
+    result_flex = []
+    for flx in flx_s:
+        result_flex.append({
+            'id': current_user.login_id,
+            'full_name': f'{current_user.name} {current_user.surname}',
+            'date': str(flx.enterTime.date()),
+            'weekDay': ['Mon', 'Tue', 'Wen', 'Thur', 'Fri', 'Sat', 'Sun'][flx.enterTime.weekday()],
+            'enter':str(flx.enterTime.time())[:5],
+            'out':str(flx.exitTime.time())[:5],
+            'duration':f'{flx.get_status() // 3600} hour. {flx.get_status()//60 %60} min.',
+            'manually':'yes' if flx.manually else 'no',
+
+        })
+    return render_template('work_day.html', user=current_user,
+                           result_flex = result_flex
+                           )
 
 
 @app.route('/mm', methods=['POST', 'GET'])
