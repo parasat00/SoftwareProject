@@ -28,7 +28,7 @@ class FlexStatus(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     employee_id = db.Column(db.Integer, db.ForeignKey('employee.id'))
     enterTime = db.Column(db.DateTime(), nullable=True)
-    exitTime = db.Column(db.DateTime(), nullable=True)
+    exitTime = db.Column(db.DateTime(),nullable=True)
     manually = db.Column(db.Boolean(), default=False,nullable=True)
 
     def get_status(self):

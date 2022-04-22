@@ -14,7 +14,7 @@ def profile_page():
     user = current_user
     flx = FlexStatus.query.order_by(desc(FlexStatus.enterTime)).filter_by(
         employee_id=current_user.id).first().get_status()
-    # print(flx)
+
     return render_template('profile.html', user=user, flex=flx)
 
 
@@ -26,7 +26,7 @@ def home():
         'today_date': datetime.now(),
         'week_day': ['Mon', 'Tue', 'Wen', 'Thur', 'Fri', 'Sat', 'Sun'][week_day]
     }
-    flxs = FlexStatus.query.filter_by(employee_id = current_user.id).all()
+    flxs = FlexStatus.query.filter_by(employee_id=current_user.id).all()
     days = []
     for flx in flxs:
         if flx.enterTime.date() == now.date():
@@ -35,9 +35,8 @@ def home():
         day_activity = {}
     else:
         day = max(days)
-        work_time = (now - day[0]) if not day[1] else (day[1] - day[0])
-        print(day[0])
-        print(day[1])
+        work_time = (now - day[0]) if day[1] == datetime(1,1,1,1,1) else (day[1] - day[0])
+
         day_activity = {
             'daily_activity': f'{(work_time.seconds / 28800) * 100:.2f}',
             'worked_time': f'{work_time.seconds // 3600:02d}:{work_time.seconds // 60 % 60:02d}',
@@ -93,9 +92,20 @@ def register_page():
 
 @app.route('/logout', methods=['POST', 'GET'])
 @login_required
-def route_page():
+def logout_route():
+
+    user_id = current_user.id
+    flx_s = FlexStatus.query.filter_by(employee_id = user_id).all()
+    today_date = []
+    for flx in flx_s:
+        if flx.enterTime.date() == datetime.now().date() and flx.exitTime == datetime(1,1,1,1,1):
+            today_date.append((flx.enterTime,flx))
+    if len(today_date):
+        flx = max(today_date)[1]
+        flx.exitTime = datetime.now()
+        db.session.commit()
     logout_user()
-    return render_template('login.html')
+    return redirect('/')
 
 
 @app.route('/reset-password', methods=['POST', 'GET'])
@@ -126,15 +136,25 @@ def work_days():
             'full_name': f'{current_user.name} {current_user.surname}',
             'date': str(flx.enterTime.date()),
             'weekDay': ['Mon', 'Tue', 'Wen', 'Thur', 'Fri', 'Sat', 'Sun'][flx.enterTime.weekday()],
-            'enter':str(flx.enterTime.time())[:5],
-            'out':str(flx.exitTime.time())[:5],
-            'duration':f'{flx.get_status() // 3600} hour. {flx.get_status()//60 %60} min.',
-            'manually':'yes' if flx.manually else 'no',
+            'enter': str(flx.enterTime.time())[:5],
+            'out': str(flx.exitTime.time())[:5],
+            'duration': f'{flx.get_status() // 3600} hour. {flx.get_status() // 60 % 60} min.',
+            'manually': 'yes' if flx.manually else 'no',
 
         })
     return render_template('work_day.html', user=current_user,
-                           result_flex = result_flex
+                           result_flex=result_flex
                            )
+
+
+@app.route('/tracking')
+def track():
+    user_id = current_user.id
+    now = datetime.now()
+    flex_status = FlexStatus(employee_id=user_id, enterTime=now,exitTime=datetime(1,1,1,1,1), manually=True)
+    db.session.add(flex_status)
+    db.session.commit()
+    return redirect('home')
 
 
 @app.route('/mm', methods=['POST', 'GET'])

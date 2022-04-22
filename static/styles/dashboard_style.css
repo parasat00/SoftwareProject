@@ -111,6 +111,7 @@ nav button img {
 }
 .profile_info {
  display: flex;
+
 }
 .profile_photo {
  width: 100%;
@@ -172,9 +173,12 @@ nav button img {
  background: #1155CC;
  border-radius: 19px;
  border: none;
+ text-align: center;
 }
 .play img {
  width: 22px;
+
+ padding: 20px;
 }
 .box {
  width: 370px;
