@@ -158,28 +158,30 @@ nav button img {
  box-shadow: 0px 13px 25px rgba(0, 0, 0, 0.01);
  border-radius: 27px;
  display: flex;
+ flex-direction: column;
  align-items: center;
  width: 400px;
- height: 130px;
+ height: 110px;
  justify-content: space-evenly;
+ padding: 10px 15px;
 }
 .start_time_tracker .txt {
  font-weight: 600;
- font-size: 22px;
+ font-size: 15px;
+ color: #757575;
 }
 .play {
- width: 72px;
- height: 72px;
  background: #1155CC;
  border-radius: 19px;
  border: none;
  text-align: center;
+ text-decoration: none;
+ color: #fff;
+ padding: 10px 20px;
+font-size: 20px;
+cursor: pointer;
 }
-.play img {
- width: 22px;
 
- padding: 20px;
-}
 .box {
  width: 370px;
  height: 240px;
@@ -240,6 +242,7 @@ td, th {
   text-align: left;
   padding: 8px;
 }
+<<<<<<< HEAD
 .red{
  color: red;
 
@@ -247,4 +250,64 @@ td, th {
 .green{
  color: green;
 
+=======
+.working_hours {
+  display: none;
+  position: fixed;
+  /* Stay in place */
+  z-index: 100;
+  /* Sit on top */
+  padding-top: 150px;
+  /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
+.working_hours_content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px 40px 30px 40px;
+  border: 1px solid #888;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+}
+.working_hours_content label {
+  font-size: larger;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.working_hours_content input[type="date"] {
+  padding: 10px 20px;
+  font-size: 15px;
+  margin-bottom: 25px;
+  cursor: pointer;
+}
+.working_hours_content input[type="submit"] {
+  width: 50%;
+  align-self: center;
+}
+.close {
+  color: #aaaaaa;
+  font-size: 28px;
+  font-weight: bold;
+  align-self: flex-end;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+>>>>>>> f8997e521c45aeb479756f259782f7a8b873e1e9
 }

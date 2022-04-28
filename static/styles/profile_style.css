@@ -170,3 +170,15 @@ nav {
   background: rgba(204, 17, 62, 0.15);
   width: 130px;
  }
+.logout a {
+  float: right;
+  padding: 10px 15px;
+  border-radius: 10px;
+  background-color: rgba(204, 17, 62, 0.15);
+  text-decoration: none;
+  color: #000;
+  font-size: larger;
+}
+.logout a:hover {
+  background-color: rgba(204, 17, 62, 0.5);
+}

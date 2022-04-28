@@ -83,7 +83,7 @@ form input[type="text"],form input[type="password"] {
 .register_button {
  padding-left: 70px;
 }
-form input[type="submit"],form input[type="button"] {
+form input[type="submit"] {
  background: #1565D8;
  border-radius: 6px;
  display: block;
@@ -94,6 +94,21 @@ form input[type="submit"],form input[type="button"] {
  border: none;
  margin: 30px 0;
  cursor: pointer;
+}
+form input[type="button"] {
+  font-family: Poppins;
+  border: none;
+  color: rgb(105, 111, 121);
+  background-color: transparent;
+  cursor: pointer;
+}
+.register_txt {
+  border-top: 2px solid #757171;
+  padding-top: 20px;
+  font-size: 20px;
+}
+form input[type="button"]:hover {
+  color: #1565D8;
 }
 .back_button {
  border: none;
