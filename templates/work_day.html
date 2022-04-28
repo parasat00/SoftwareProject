@@ -59,6 +59,22 @@
  </nav>
 <section class="main_content">
     <div class="container_table">
+    {% if not isAdmin %}
+    <div>
+        <p>work time:{{ cntx_head.work_time }}</p>
+        <p>time left:
+           {% if cntx_head.number_time_left > 0 %}
+        <span class="red">{{cntx_head.time_left}}</span>
+        {% else %}
+        <span class="green">+{{cntx_head.time_left}} </span>
+        {% endif %}
+
+        </p>
+
+
+
+    </div>
+    {% endif %}
         <table>
             <tr>
                 <th>Employee ID</th>
@@ -82,6 +98,7 @@
                     <th>{{ r.manually }}</th>
                 </tr>
             {% endfor %}
+
         </table>
 
     </div>

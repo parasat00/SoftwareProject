@@ -35,7 +35,7 @@ def home():
         day_activity = {}
     else:
         day = max(days)
-        work_time = (now - day[0]) if day[1] == datetime(1,1,1,1,1) else (day[1] - day[0])
+        work_time = (now - day[0]) if day[1] == datetime(1, 1, 1, 1, 1) else (day[1] - day[0])
 
         day_activity = {
             'daily_activity': f'{(work_time.seconds / 28800) * 100:.2f}',
@@ -93,13 +93,12 @@ def register_page():
 @app.route('/logout', methods=['POST', 'GET'])
 @login_required
 def logout_route():
-
     user_id = current_user.id
-    flx_s = FlexStatus.query.filter_by(employee_id = user_id).all()
+    flx_s = FlexStatus.query.filter_by(employee_id=user_id).all()
     today_date = []
     for flx in flx_s:
-        if flx.enterTime.date() == datetime.now().date() and flx.exitTime == datetime(1,1,1,1,1):
-            today_date.append((flx.enterTime,flx))
+        if flx.enterTime.date() == datetime.now().date() and flx.exitTime == datetime(1, 1, 1, 1, 1):
+            today_date.append((flx.enterTime, flx))
     if len(today_date):
         flx = max(today_date)[1]
         flx.exitTime = datetime.now()
@@ -116,44 +115,69 @@ def reset_password():
         surname = request.form.get('surname')
         profession = request.form.get('profession')
         password = request.form.get('password')
-        update_employee = Employee.query.filter_by(login_id=login_id).fist()
+        update_employee = Employee.query.filter_by(login_id=login_id).first()
 
         if name == update_employee.name and surname == update_employee.surname and update_employee.profession == profession:
             update_employee.password = generate_password_hash(password)
             flash('Successfully changed')
             db.session.commit()
+            return redirect('/')
 
     return render_template('reset.html')
 
 
 @app.route('/work_days')
 def work_days():
-    flx_s = FlexStatus.query.filter_by(employee_id=current_user.id).all()
+    isAdmin = False
+    if current_user.profession in ['admin','manager admin','multi admin']:
+        flx_s = FlexStatus.query.all()
+        isAdmin = True
+    else:
+        flx_s = FlexStatus.query.filter_by(employee_id=current_user.id).all()
     result_flex = []
+    unique_days = set()
+    work_time = 0
     for flx in flx_s:
+        emp = Employee.query.filter_by(id = flx.employee_id).first()
+        unique_days.add(flx.enterTime.date())
+        a = flx.exitTime != datetime(1, 1, 1, 1, 1)
+        work_time += flx.get_status() if a else 0
+
         result_flex.append({
-            'id': current_user.login_id,
-            'full_name': f'{current_user.name} {current_user.surname}',
+            'id': emp.login_id,
+            'full_name': f'{emp.name} {emp.surname}',
             'date': str(flx.enterTime.date()),
             'weekDay': ['Mon', 'Tue', 'Wen', 'Thur', 'Fri', 'Sat', 'Sun'][flx.enterTime.weekday()],
             'enter': str(flx.enterTime.time())[:5],
-            'out': str(flx.exitTime.time())[:5],
-            'duration': f'{flx.get_status() // 3600} hour. {flx.get_status() // 60 % 60} min.',
+            'out': str(flx.exitTime.time())[:5] if flx.exitTime != datetime(1,1,1,1,1) else '-',
+            'duration': f'{flx.get_status() // 3600} hour. {flx.get_status() // 60 % 60} min.' if a else '-',
             'manually': 'yes' if flx.manually else 'no',
 
         })
+    wp = abs(len(unique_days) * 7 * 3600 - work_time)
+    context_head = {
+        "work_time": f'{work_time // 3600} hour. {work_time // 60 % 60} min.',
+        "time_left": f'{wp // 3600} hour. {wp // 60 % 60} min.',
+        "number_time_left": len(unique_days) * 7 * 3600 - work_time,
+    }
+
     return render_template('work_day.html', user=current_user,
-                           result_flex=result_flex
+                           result_flex=result_flex,
+                           cntx_head=context_head,
+                           isAdmin = isAdmin
+
                            )
 
 
 @app.route('/tracking')
 def track():
     user_id = current_user.id
+
     now = datetime.now()
-    flex_status = FlexStatus(employee_id=user_id, enterTime=now,exitTime=datetime(1,1,1,1,1), manually=True)
+    flex_status = FlexStatus(employee_id=user_id, enterTime=now, exitTime=datetime(1, 1, 1, 1, 1), manually=True)
     db.session.add(flex_status)
     db.session.commit()
+
     return redirect('home')
 
 
