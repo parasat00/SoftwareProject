@@ -86,8 +86,8 @@
                 <th>Duration</th>
                 <th>Manually</th>
             </tr>
-            {% for r in result_flex %}
-                <tr>
+            {% for r in work_flx %}
+                <tr class = '{{ r.name }}'>
                     <th>{{ r.id }}</th>
                     <th>{{ r.full_name }}</th>
                     <th>{{ r.date }}</th>
@@ -100,6 +100,33 @@
             {% endfor %}
 
         </table>
+    <h1>Activity</h1>
+    <table>
+            <tr>
+                <th>Employee ID</th>
+                <th>Name Surname</th>
+                <th>Date</th>
+                <th>Day</th>
+                <th>In</th>
+                <th>Out</th>
+                <th>Duration</th>
+                <th>Issue</th>
+            </tr>
+            {% for r in activity_flx %}
+                <tr class = '{{ r.name }}'>
+                    <th>{{ r.id }}</th>
+                    <th>{{ r.full_name }}</th>
+                    <th>{{ r.date }}</th>
+                    <th>{{ r.weekDay }}</th>
+                    <th>{{ r.enter }}</th>
+                    <th>{{ r.out }}</th>
+                    <th>{{ r.duration }}</th>
+                    <th>{{ r.issue }}</th>
+                </tr>
+            {% endfor %}
+
+        </table>
+
 
     </div>
 </section>

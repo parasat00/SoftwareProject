@@ -13,13 +13,30 @@
   <div class="working_hours" id="modal">
     
     <div class="working_hours_content">
+        <form method="post" action="/home/manually">
       <span class="close">&times;</span>
-      <label for="in_time">Work Started at:</label>
-      <input type="date" id="in_time" name="in_time" class="modal_dates">
+             <br>
+
+      <label style="display: inline-block">Work
+      <input type="radio" checked="checked" name="radio" value = "work">
+
+      </label>
+      <label style="display: inline-block">Activity
+      <input type="radio" name="radio" value="activity">
+
+      </label>
+      <br>
+
+      <label for="in_time">Started at:</label>
+      <input type="datetime-local" id="in_time" name="in_time" class="modal_dates">
       
-      <label for="out_time">Work Ended at:</label>
-      <input type="date" id="out_time" name="out_time" class="modal_dates">
+      <label for="out_time">Ended at:</label>
+      <input type="datetime-local" id="out_time" name="out_time" class="modal_dates">
+      <textarea class = "text_area" name = "issue">
+
+      </textarea>
       <input type="submit" class="play">
+      </form>
     </div>
 
   </div>
@@ -181,7 +198,7 @@
 
           // When the user clicks anywhere outside of the modal, close it
           window.onclick = function(event) {
-  if (event.target == modal) {
+  if (event.target === modal) {
             modal.style.display = "none";
   }
 }

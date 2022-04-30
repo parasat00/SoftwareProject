@@ -1,7 +1,7 @@
 from datetime import datetime
 from flask_login import login_required, login_user, logout_user, current_user
 from app import app, db
-from flask import Flask, flash, redirect, render_template, request
+from flask import flash, redirect, render_template, request
 from models import Employee, FlexStatus, load_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import desc
@@ -129,31 +129,48 @@ def reset_password():
 @app.route('/work_days')
 def work_days():
     isAdmin = False
-    if current_user.profession in ['admin','manager admin','multi admin']:
+    if current_user.profession in ['admin', 'manager admin', 'multi admin']:
         flx_s = FlexStatus.query.all()
-        isAdmin = True
+        isAdmin = not isAdmin
     else:
         flx_s = FlexStatus.query.filter_by(employee_id=current_user.id).all()
-    result_flex = []
+    work_flx = []
+    activity_flx = []
+
     unique_days = set()
     work_time = 0
     for flx in flx_s:
-        emp = Employee.query.filter_by(id = flx.employee_id).first()
-        unique_days.add(flx.enterTime.date())
-        a = flx.exitTime != datetime(1, 1, 1, 1, 1)
-        work_time += flx.get_status() if a else 0
+        emp = Employee.query.filter_by(id=flx.employee_id).first()
+        if str(flx.name) == 'work':
 
-        result_flex.append({
-            'id': emp.login_id,
-            'full_name': f'{emp.name} {emp.surname}',
-            'date': str(flx.enterTime.date()),
-            'weekDay': ['Mon', 'Tue', 'Wen', 'Thur', 'Fri', 'Sat', 'Sun'][flx.enterTime.weekday()],
-            'enter': str(flx.enterTime.time())[:5],
-            'out': str(flx.exitTime.time())[:5] if flx.exitTime != datetime(1,1,1,1,1) else '-',
-            'duration': f'{flx.get_status() // 3600} hour. {flx.get_status() // 60 % 60} min.' if a else '-',
-            'manually': 'yes' if flx.manually else 'no',
+            unique_days.add(flx.enterTime.date())
+            a = flx.exitTime != datetime(1, 1, 1, 1, 1)
+            work_time += flx.get_status() if a else 0
 
-        })
+            work_flx.append({
+                'id': emp.login_id,
+                'full_name': f'{emp.name} {emp.surname}',
+                'date': str(flx.enterTime.date()),
+                'weekDay': ['Mon', 'Tue', 'Wen', 'Thur', 'Fri', 'Sat', 'Sun'][flx.enterTime.weekday()],
+                'enter': str(flx.enterTime.time())[:5],
+                'out': str(flx.exitTime.time())[:5] if flx.exitTime != datetime(1, 1, 1, 1, 1) else '-',
+                'duration': f'{flx.get_status() // 3600} hour. {flx.get_status() // 60 % 60} min.' if a else '-',
+                'manually': 'yes' if flx.manually else 'no',
+
+            })
+        else:
+            activity_flx.append({
+                'id': emp.login_id,
+                'full_name': f'{emp.name} {emp.surname}',
+                'date': str(flx.enterTime.date()),
+                'weekDay': ['Mon', 'Tue', 'Wen', 'Thur', 'Fri', 'Sat', 'Sun'][flx.enterTime.weekday()],
+                'enter': str(flx.enterTime.time())[:5],
+                'out': str(flx.exitTime.time())[:5] if flx.exitTime != datetime(1, 1, 1, 1, 1) else '-',
+                'duration': f'{flx.get_status() // 3600} hour. {flx.get_status() // 60 % 60} min.',
+                'issue': flx.issue if flx.issue else '',
+
+            })
+
     wp = abs(len(unique_days) * 7 * 3600 - work_time)
     context_head = {
         "work_time": f'{work_time // 3600} hour. {work_time // 60 % 60} min.',
@@ -162,43 +179,39 @@ def work_days():
     }
 
     return render_template('work_day.html', user=current_user,
-                           result_flex=result_flex,
+                           work_flx = work_flx,
                            cntx_head=context_head,
-                           isAdmin = isAdmin
+                           isAdmin=isAdmin,
+                           activity_flx=activity_flx,
 
                            )
 
 
-@app.route('/tracking')
-def track():
-    user_id = current_user.id
+@app.post('/home/manually')
+def manually_change():
+    a = request.form.get('in_time')
+    b = request.form.get('out_time')
+    issue = request.form.get('issue')
+    name_of_flx_status = request.form.get('radio')
 
-    now = datetime.now()
-    flex_status = FlexStatus(employee_id=user_id, enterTime=now, exitTime=datetime(1, 1, 1, 1, 1), manually=True)
-    db.session.add(flex_status)
-    db.session.commit()
+    def get_dt(date):
+        date = str(date)
+        year = int(date[:4])
+        month = int(date[5:7])
+        day = int(date[8:10])
+        hour = int(date[11:13])
+        minute = int(date[14:16])
+        return datetime(year, month, day, hour, minute)
 
-    return redirect('home')
-
-
-@app.route('/mm', methods=['POST', 'GET'])
-def nnn():
-    if request.method == 'POST':
-        a = request.form.get('enterDate')
-        b = request.form.get('exitDate')
-
-        def get_dt(date):
-            date = str(date)
-            year = int(date[:4])
-            month = int(date[5:7])
-            day = int(date[8:10])
-            hour = int(date[11:13])
-            minute = int(date[14:16])
-            return datetime(year, month, day, hour, minute)
-
+    try:
         a = get_dt(a)
         b = get_dt(b)
-        flx = FlexStatus(enterTime=a, exitTime=b, employee_id=current_user.id)
+        flx = FlexStatus(enterTime=a, exitTime=b, employee_id=current_user.id, manually=True, issue=issue,
+                         name=name_of_flx_status)
         db.session.add(flx)
         db.session.commit()
-    return render_template('constant_form.html')
+
+    except:
+        return 'the was error with adding'
+
+    return redirect('/home')

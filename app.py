@@ -9,7 +9,7 @@ app.secret_key = 'multi secret'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tracker.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-migrate = Migrate(app,db)
+migrate = Migrate(app,db,render_as_batch=True)
 login_manager = LoginManager(app)
 
 

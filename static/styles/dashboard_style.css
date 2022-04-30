@@ -242,15 +242,15 @@ td, th {
   text-align: left;
   padding: 8px;
 }
-<<<<<<< HEAD
+
 .red{
  color: red;
 
 }
-.green{
- color: green;
+.green {
+    color: green;
 
-=======
+}
 .working_hours {
   display: none;
   position: fixed;
@@ -287,7 +287,7 @@ td, th {
   text-align: center;
   margin-bottom: 10px;
 }
-.working_hours_content input[type="date"] {
+.working_hours_content input[type="datetime-local"] {
   padding: 10px 20px;
   font-size: 15px;
   margin-bottom: 25px;
@@ -309,5 +309,24 @@ td, th {
   color: #000;
   text-decoration: none;
   cursor: pointer;
->>>>>>> f8997e521c45aeb479756f259782f7a8b873e1e9
+
+}
+.text_area{
+    width: 100%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+}
+.work > th{
+
+
+}
+.activity > th{
+    color: #4cbb17;
+
 }
