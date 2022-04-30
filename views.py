@@ -191,12 +191,13 @@ def work_days(id):
 
 
 @app.post('/home/manually')
+@login_required
 def manually_change():
     a = request.form.get('in_time')
     b = request.form.get('out_time')
     issue = request.form.get('issue')
-    name_of_flx_status = request.form.get('radio')
-
+    name_of_flx_status = 'work' if not issue else 'activity'
+    print(issue,name_of_flx_status)
     def get_dt(date):
         date = str(date)
         year = int(date[:4])

@@ -63,11 +63,13 @@
             <tr>
                 <th>Employee ID</th>
                 <th>Name Surname</th>
+                <th>Profession</th>
             </tr>
             {% for e in employers %}
                 <tr>
                     <th>{{ e.login_id }}</th>
                     <th><a href="{{ "work_days/" + e.login_id }}">{{ e.full_name() }} </a></th>
+                    <th>{{ e.profession }}</th>
                 </tr>
             {% endfor %}
 
