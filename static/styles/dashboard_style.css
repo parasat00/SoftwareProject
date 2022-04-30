@@ -278,9 +278,13 @@ td, th {
   padding: 20px 40px 30px 40px;
   border: 1px solid #888;
   width: 30%;
+  border-radius: 15px;
+}
+.working_hours_content form {
   display: flex;
   flex-direction: column;
-  border-radius: 15px;
+  align-items: center;
+  width: 100%;
 }
 .working_hours_content label {
   font-size: larger;
@@ -292,6 +296,7 @@ td, th {
   font-size: 15px;
   margin-bottom: 25px;
   cursor: pointer;
+  width: 70%;
 }
 .working_hours_content input[type="submit"] {
   width: 50%;
@@ -312,7 +317,7 @@ td, th {
 
 }
 .text_area{
-    width: 100%;
+    width: 80%;
     height: 150px;
     padding: 12px 20px;
     box-sizing: border-box;
@@ -321,6 +326,10 @@ td, th {
     background-color: #f8f8f8;
     font-size: 16px;
     resize: none;
+    margin-bottom: 15px;
+}
+.dontDisplay {
+  display: none;
 }
 .work > th{
 
@@ -329,4 +338,20 @@ td, th {
 .activity > th{
     color: #4cbb17;
 
+}
+.leisure_manual {
+  color: #555;
+  align-self: end;
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+.leisure_manual:hover {
+  color: #1155CC;
+}
+.working_hours_content h1 {
+  margin: 0;
+}
+#leisure_modal {
+  padding-top: 50px;
 }
