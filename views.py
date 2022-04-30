@@ -43,10 +43,12 @@ def home():
             'hours_remained': f'{(8 - math.ceil(work_time.seconds / 3600)):02d}:{(60 - work_time.seconds // 60 % 60):02d}'
 
         }
-
+    isAdmin = current_user.profession in ['multi admin']
     return render_template('dashboard.html',
                            today=today,
-                           user=current_user, day_activity=day_activity)
+                           user=current_user, day_activity=day_activity,isAdmin = isAdmin
+
+                           )
 
 
 @app.route('/', methods=['POST', 'GET'])
@@ -126,21 +128,21 @@ def reset_password():
     return render_template('reset.html')
 
 
-@app.route('/work_days')
-def work_days():
-    isAdmin = False
-    if current_user.profession in ['admin', 'manager admin', 'multi admin']:
-        flx_s = FlexStatus.query.all()
-        isAdmin = not isAdmin
-    else:
-        flx_s = FlexStatus.query.filter_by(employee_id=current_user.id).all()
+@app.route('/work_days/<string:id>')
+def work_days(id):
+    isAdmin = current_user.profession in ['multi admin']
+    # print(id)
+
+    emp = Employee.query.filter_by(login_id = id).first()
+    flx_s = FlexStatus.query.filter_by(employee_id = emp.id).all()
+    # print(flx_s,id)
     work_flx = []
     activity_flx = []
 
     unique_days = set()
     work_time = 0
     for flx in flx_s:
-        emp = Employee.query.filter_by(id=flx.employee_id).first()
+        emp = Employee.query.filter_by(id = flx.employee_id).first()
         if str(flx.name) == 'work':
 
             unique_days.add(flx.enterTime.date())
@@ -178,7 +180,8 @@ def work_days():
         "number_time_left": len(unique_days) * 7 * 3600 - work_time,
     }
 
-    return render_template('work_day.html', user=current_user,
+    return render_template('work_day.html',
+                           user=current_user,
                            work_flx = work_flx,
                            cntx_head=context_head,
                            isAdmin=isAdmin,
@@ -215,3 +218,9 @@ def manually_change():
         return 'the was error with adding'
 
     return redirect('/home')
+
+
+@app.route('/work_days')
+def list_of_employee():
+    employers = Employee.query.all()
+    return render_template('list_of_employee.html',employers = employers,user = current_user)

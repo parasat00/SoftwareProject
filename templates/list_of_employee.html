@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Employers list</title>
+ <link rel="stylesheet" href="../static/styles/dashboard_style.css">
+ <link rel="stylesheet" href="{{ url_for('static',filename = 'styles/dashboard_style.css') }}">
+</head>
+<body>
+
+ <section id="mySideNav" class="sideNav">
+
+  <a href="#" class="logo_container">
+   <img src="../static/images/logo.png" alt="logo">
+  </a>
+
+  <a href="home" class="links">
+   <img src="../static/images/rect.png" alt="">
+   <div>Dashboard</div>
+  </a>
+
+  <a href="work_days" class="dashboard_black">
+   <img src="../static/images/icon_workDays.png" alt="">
+   Work Days
+  </a>
+
+  <a href="#" class="links">
+   <img src="../static/images/icon_settings.png" alt="">
+   Settings
+  </a>
+
+ </section>
+<nav>
+
+  <button>
+   <img src="../static/images/menu_bar.png" alt="">
+   <div class="dashboard_txt">Dashboard</div>
+  </button>
+
+  <div class="search">
+   Search Project ...
+  </div>
+
+  <div class="notifications">
+   <img src="../static/images/bell.png" alt="">
+   <div class="notification_numb">12</div>
+  </div>
+
+  <div class="profile_info">
+   <div class="name_profession">
+    <div class="name_surname">{{ user.name }} {{ user.surname }} </div>
+    <div class="profession">{{ user.profession }}</div>
+   </div>
+   <a href="/profile"><img src="../static/images/profile_photo.png" alt="" class="profile_photo"></a>
+  </div>
+
+ </nav>
+<section class="main_content">
+    <div class="container_table">
+        <table>
+            <tr>
+                <th>Employee ID</th>
+                <th>Name Surname</th>
+            </tr>
+            {% for e in employers %}
+                <tr>
+                    <th>{{ e.login_id }}</th>
+                    <th><a href="{{ "work_days/" + e.login_id }}">{{ e.full_name() }} </a></th>
+                </tr>
+            {% endfor %}
+
+        </table>
+
+
+
+    </div>
+</section>
+
+
+
+</body>
+</html>

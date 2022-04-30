@@ -22,6 +22,9 @@ class Employee(db.Model, UserMixin):
     # assigned_id = db.Column(db.Integer, db.ForeignKey('employee.id'))
     # assignedUser = db.relationship('Employees',backref = 'employee')
 
+    def full_name(self):
+        return f'{self.name} {self.surname}'
+
 
     def __repr__(self) -> str:
         return "<Employee %r> " % self.id

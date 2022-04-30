@@ -16,15 +16,22 @@
    <img src="../static/images/logo.png" alt="logo">
   </a>
 
-  <a href="home" class="links">
+  <a href="{{ url_for('home') }}" class="links">
    <img src="../static/images/rect.png" alt="">
    <div>Dashboard</div>
   </a>
-
-  <a href="work_days" class="dashboard_black">
+{% if not isAdmin %}
+  <a href="{{ url_for('work_days' ,id = user.login_id) }}" class="dashboard_black">
    <img src="../static/images/icon_workDays.png" alt="">
    Work Days
   </a>
+    {% else %}
+    <a href="{{ url_for('list_of_employee') }}" class="dashboard_black">
+           <img src="../static/images/icon_workDays.png" alt="">
+           Work Days
+          </a>
+
+     {% endif %}
 
   <a href="#" class="links">
    <img src="../static/images/icon_settings.png" alt="">

@@ -52,10 +52,18 @@
    <div>Dashboard</div>
   </a>
 
-  <a href="work_days" class="links">
+  {% if not isAdmin %}
+  <a href="{{ url_for('work_days' ,id = user.login_id) }}" >
    <img src="../static/images/icon_workDays.png" alt="">
    Work Days
   </a>
+    {% else %}
+    <a href="{{ url_for('list_of_employee') }}" >
+           <img src="../static/images/icon_workDays.png" alt="">
+           Work Days
+          </a>
+
+     {% endif %}
 
   <!-- <a href="" class="links">
    <img src="../static/images/icon_settings.png" alt="">
